@@ -52,7 +52,7 @@ int main(int argc, char** argv)
     pinMode(IS_CLOSED, INPUT);
 
     ros::NodeHandle n;
-    ros::Subscriber sub = n.subscribe("talker",10,callback);
+    ros::Subscriber sub = n.subscribe("barrera_solicitud",10,callback);
 
     ros::spin();
 }
