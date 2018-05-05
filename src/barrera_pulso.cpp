@@ -43,7 +43,7 @@ void callback(const std_msgs::Int8::ConstPtr& msg)  //Barrier opens with a solic
 
   	}
   }
-  if (digitalRead(IS_OPEN) == 0 && digitalRead(IS_CLOSED) == 0){
+  /*if (digitalRead(IS_OPEN) == 0 && digitalRead(IS_CLOSED) == 0){
 	ROS_INFO("La barrera se esta cerrando por seguridad");
 	digitalWrite (PIN_CERRAR, HIGH);
 	digitalWrite (PIN_ABRIR, LOW);
@@ -54,7 +54,7 @@ void callback(const std_msgs::Int8::ConstPtr& msg)  //Barrier opens with a solic
 	ROS_INFO("La barrera se ha cerrado por seguridad");
 	estado.data=0;	
 	//pub.publish(estado);
-  }
+  }*/
 }
 
 int main(int argc, char** argv)
@@ -68,6 +68,19 @@ int main(int argc, char** argv)
     pinMode(IS_OPEN, INPUT);
     pinMode(IS_CLOSED, INPUT);
 
+	if (digitalRead(IS_OPEN) == 0 && digitalRead(IS_CLOSED) == 0){
+	ROS_INFO("La barrera se esta cerrando por seguridad");
+	digitalWrite (PIN_CERRAR, HIGH);
+	digitalWrite (PIN_ABRIR, LOW);
+	while ( !digitalRead(IS_CLOSED)){
+			digitalRead(IS_CLOSED);
+	}
+	digitalWrite (PIN_CERRAR, LOW);
+	ROS_INFO("La barrera se ha cerrado por seguridad");
+	estado.data=0;	
+	//pub.publish(estado);
+  }
+  
     ros::NodeHandle n;
     ros::Subscriber sub = n.subscribe("barrera_solicitud",10,callback);
     ros::Publisher pub = n.advertise<std_msgs::Byte>("/barrera_estado",10);
