@@ -21,6 +21,7 @@ void callback(const std_msgs::Int8::ConstPtr& msg)  //Barrier's open pin needs t
 			digitalWrite (PIN_ABRIR, HIGH);
 			digitalWrite (PIN_CERRAR, LOW);
  		}
+ 		digitalWrite (PIN_ABRIR, LOW);
  		ROS_INFO("La barrera esta abierta");
  		estado.data=1;	
 		//pub.publish(estado);
@@ -33,6 +34,7 @@ void callback(const std_msgs::Int8::ConstPtr& msg)  //Barrier's open pin needs t
 			digitalWrite (PIN_CERRAR, HIGH);
 			digitalWrite (PIN_ABRIR, LOW);
  		}
+ 		digitalWrite (PIN_CERRAR, LOW);
  		ROS_INFO("La barrera esta cerrada");
  		estado.data=0;	
 		//pub.publish(estado);
@@ -44,6 +46,7 @@ void callback(const std_msgs::Int8::ConstPtr& msg)  //Barrier's open pin needs t
 	digitalWrite (PIN_CERRAR, HIGH);
 	digitalWrite (PIN_ABRIR, LOW);
 	}
+	digitalWrite (PIN_CERRAR, LOW);
 	ROS_INFO("La barrera se ha cerrado por seguridad");
 	estado.data=0;	
 	//pub.publish(estado);
